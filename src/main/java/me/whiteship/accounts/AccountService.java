@@ -1,5 +1,6 @@
 package me.whiteship.accounts;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 @Service
 @Transactional
+@Slf4j
 public class AccountService {
 
     @Autowired
@@ -25,6 +27,7 @@ public class AccountService {
         // TODO 유효한 username인지 판단
         String username = dto.getUsername();
         if (repository.findByUsername(username) != null) {
+            log.error("user duplicated exception. {}", username);
             throw new UserDuplicatedException(username);
         }
 

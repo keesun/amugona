@@ -50,7 +50,7 @@ public class AccountControllerTest {
 
     // TODO 서비스 호출에서 예외 상황을 비동기 콜백으로 처리하는 것도 해주세요. 예외 던지지 말고.
     @Test
-         public void createAccount() throws Exception {
+    public void createAccount() throws Exception {
         AccountDto.Create creatDto = new AccountDto.Create();
         creatDto.setUsername("whiteship");
         creatDto.setPassword("password");

@@ -31,7 +31,7 @@ public class AccountController {
     private ModelMapper modelMapper;
 
     @RequestMapping(value = "/accounts", method = RequestMethod.POST)
-        public ResponseEntity createAccount(@RequestBody @Valid AccountDto.Create create,
+    public ResponseEntity createAccount(@RequestBody @Valid AccountDto.Create create,
                                             BindingResult result) {
         if (result.hasErrors()) {
             ErrorResponse errorResponse = new ErrorResponse();
@@ -56,9 +56,9 @@ public class AccountController {
     }
 
     // TODO stream() vs parallelStream()
-    // TODO 로깅
     // TODO HATEOAS
     // TODO 뷰
+    // TODO boot를 프로덕션에 배포할때 튜닝포인트(?) 궁금해요~ ^^ (강대권)
     // NSPA 1. Thymeleaf
     // SPA 2. 앵귤러 3. 리액트
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)

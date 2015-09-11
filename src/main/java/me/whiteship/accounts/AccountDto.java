@@ -30,4 +30,10 @@ public class AccountDto {
         private Date joined;
         private Date updated;
     }
+
+    @Data
+    public static class Update {
+        private String password;
+        private String fullName;
+    }
 }

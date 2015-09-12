@@ -7,14 +7,22 @@ npm install
 
 ### Webpack
 
-Build bundle.js
+Build bundle.js : Make sure that bundle.js file src should be "scripts/bundle.js"
 
 ```
-webpack
+npm run build 
+```
+
+Watch mode : Make sure that bundle.js file src should be "localhost:3003/bundle.js"
+
+```
+npm run watch
 ```
 
 ### Folders
 
 `components` - React components
+
 `containers` - React pages
+
 `styles` - css

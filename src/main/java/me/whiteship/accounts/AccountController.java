@@ -91,6 +91,12 @@ public class AccountController {
                 HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/accounts/{id}", method = DELETE)
+    public ResponseEntity deleteAccount(@PathVariable Long id) {
+        service.deleteAccount(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     // TODO 예외 처리 네번째 방법 (콜백 비스무리한거...)
     @ExceptionHandler(UserDuplicatedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

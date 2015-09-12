@@ -6,11 +6,15 @@ module.exports = {
     entry: './main.js',
     output: {
         path: path.join(__dirname, '../static/scripts'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     resolve: {
         extensions: ['', '.js']
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
     module: {
         loaders: [
             {test: /\.js$/, loader: 'babel', exclude: /node_modules/},

@@ -15,6 +15,6 @@ webpack
 
 ### Folders
 
-`componets` - React componets
+`components` - React components
 `containers` - React pages
 `styles` - css

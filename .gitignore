@@ -3,3 +3,4 @@
 target/
 logs/
 node_modules/
+**/bundle.js

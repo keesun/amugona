@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,10 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 
 /**
  * @author Keesun Baik
@@ -42,9 +46,14 @@ public class AccountControllerTest {
 
     MockMvc mockMvc;
 
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
+
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac)
+                .addFilter(springSecurityFilterChain)
+                .build();
     }
 
     // TODO 서비스 호출에서 예외 상황을 비동기 콜백으로 처리하는 것도 해주세요. 예외 던지지 말고.
@@ -133,14 +142,18 @@ public class AccountControllerTest {
 
     @Test
     public void deleteAccount() throws Exception {
-        ResultActions result = mockMvc.perform(delete("/accounts/1"));
-        result.andDo(print());
-        result.andExpect(status().isBadRequest());
-
         AccountDto.Create createDto = accountCreateDto();
         Account account = service.createAccount(createDto);
 
-        result = mockMvc.perform(delete("/accounts/" + account.getId()));
+        ResultActions result = mockMvc.perform(delete("/accounts/12839187241")
+            .with(httpBasic(createDto.getUsername(), createDto.getPassword())));
+
+        result.andDo(print());
+        result.andExpect(status().isBadRequest());
+
+        result = mockMvc.perform(delete("/accounts/" + account.getId())
+            .with(httpBasic(createDto.getUsername(), createDto.getPassword())));
+
         result.andDo(print());
         result.andExpect(status().isNoContent());
     }
